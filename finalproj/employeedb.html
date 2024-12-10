@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitazan Agri Supply - Employee Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div class="outer-box">
+        <div class="sidebar">
+            <div class="header-section">
+                <img src="images/logo.jpg" alt="Logo" class="logo">
+                <nav class="navigation">
+                    <ul>
+                        <li><a href="#" data-section="products">Products</a></li>
+                        <li><a href="#" data-section="orders">Orders</a></li>
+                        <li><a href="#" data-section="account">Account</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Products Section -->
+        <div id="products" class="inner-box section active">
+            <h2>Product Catalog</h2>
+            <div id="catalog-container"></div>
+            
+            <div id="add-product-form">
+                <h3>Add New Product</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" id="product-name" class="product-name" required /></td>
+                            <td><input type="text" id="product-description" class="product-description" /></td>
+                            <td><input type="number" id="product-price" class="product-price" required /></td>
+                            <td><input type="number" id="product-stock" class="product-stock" required /></td>
+                            <td><button type="submit" id="add-product">Add Product</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="delete-product-form">
+                <h3>Delete Product</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" id="delete-product-name" class="product-name" required /></td>
+                            <td><button type="submit" id="delete-product">Delete Product</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Orders Section -->
+        <div id="orders" class="inner-box section">
+            <h2>Orders</h2>
+            <ul id="all-orders"></ul>
+        </div>
+
+        <!-- Account Section -->
+        <div id="account" name="account" class="inner-box section">
+            <h2>Account Information</h2>
+            <p><strong>Username:</strong> <span id="Username"></span></p>
+            <p><strong>First Name:</strong> <span id="FirstName"></span></p>
+            <p><strong>Last Name:</strong> <span id="LastName"></span></p>
+            <p><strong>Contact Info:</strong> <span id="ContactInfo"></span></p>
+            <p><strong>Address:</strong> <span id="Address"></span></p>
+            <p><strong>EmployeeID:</strong> <span id="EmployeeID"></span></p>
+            <div class="account-buttons">
+                <button type="button" id="logout" class="logout" onclick="window.location.href='index.html'">Logout</button>
+            </div>
+        </div>
+    </div>
+    <script src="employeedb.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitazan Agri Supply</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Mitazan Agri Supply</h1>
+        <form action="/login" id="login-form" method="post">
+            <h3>Login</h3>
+
+            <div class="input-container">
+                <input type="text"id="Username" name="Username" class="oval-input" placeholder="Username">
+            </div>
+
+            <div class="input-container">
+                <input type="password" id="Password" name="Password" class="oval-input" placeholder="Password">
+            </div>
+
+            <a href="recover.html" class="ph">Forgot Password?</a>
+
+            <button type="submit" class="login-button" id="login" name="login">Login</button>
+            
+            <div class="signup-container">
+                <span>Don't have an account?</span>
+                <a href="signup.html" class="ph">Sign Up</a>
+            </div>
+        </form>
+    </div>
+    <script> 
+    document.addEventListener("DOMContentLoaded", () => {
+        const loginForm = document.getElementById("login-form");
+    
+        loginForm.addEventListener("submit", async (e) => {
+            e.preventDefault(); // Prevent the default form submission behavior
+    
+            const Username = document.getElementById("Username").value;
+            const Password = document.getElementById("Password").value;
+    
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ Username, Password }),
+                });
+    
+                if (!response.ok) {
+                    const errorMessage = await response.text();
+                    alert(errorMessage);
+                    return;
+                }
+    
+                // Parse user data from the response
+                const userData = await response.json();
+                console.log("User Data from Backend:", userData);
+    
+                // Store user data in localStorage
+                localStorage.setItem("Username", userData.Username);
+                localStorage.setItem("FirstName", userData.FirstName);
+                localStorage.setItem("LastName", userData.LastName);
+                localStorage.setItem("ContactInfo", userData.ContactInfo);
+                localStorage.setItem("Address", userData.Address);
+                localStorage.setItem("EmployeeID", userData.EmployeeID);
+    
+                // Check if EmployeeID is not empty and redirect accordingly
+                if (userData.EmployeeID && userData.EmployeeID.trim() !== "") {
+                    // Redirect to employee dashboard
+                    window.location.href = "/employeedb.html";
+                } else {
+                    // Redirect to customer dashboard
+                    window.location.href = "/dashboard.html";
+                }
+    
+            } catch (err) {
+                console.error("Login error:", err);
+                alert("An error occurred during login. Please try again.");
+            }
+        });
+    });
+</script>    
+</body>
+</html>

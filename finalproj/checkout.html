@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitazan Agri Supply - Payment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="checkout.css">
+</head>
+<body>
+    <header>
+        <h1>Mitazan Agri Supply</h1>
+    </header>
+
+    <main class="container">
+        <section class="payment-details">
+            <h2>Payment</h2>
+            <div class="cart-summary">
+                <p><strong>Items in Cart:</strong> <br> <span id="total-items">0</span></p>
+                <p><strong>Total Price:</strong> <br> <span id="total-price">Php 0.00</span></p>
+            </div>
+            <p class="instructions">
+                Your order is ready for checkout. Please send your payment to:
+                <br><strong>Bank Account:</strong> 1234-5678-90 (Sample Bank)
+                <br><strong>Online Wallet:</strong> 0987-654-321
+            </p>
+        </section>
+
+        <section class="action-buttons">
+            <button class="button cancel-button" id="cancel" type="button">Cancel</button>
+            <button class="button confirm-button" id="confirm" type="submit">Confirm</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Mitazan Agri Supply. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartData = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalPrice = cartData.reduce((sum, item) => sum + item.totalPrice, 0);
+            const Username = localStorage.getItem('Username');
+
+            // Update UI with cart details
+            document.getElementById('total-price').textContent = `Php ${totalPrice.toLocaleString()}`;
+            const cartItemsElement = document.getElementById('total-items');
+            if (cartData.length === 0) {
+                cartItemsElement.textContent = 'Your cart is empty.';
+            } else {
+                const itemsList = cartData.map(item => `${item.name} (x${item.quantity})`).join('<br>');
+                cartItemsElement.innerHTML = itemsList;
+            }
+
+            // Confirm order
+            document.getElementById('confirm').addEventListener('click', async () => {
+                if (!Username || cartData.length === 0) {
+                    alert('No user or cart data available. Please try again.');
+                    return;
+                }
+
+                const orderData = {
+                    Username,
+                    cartData,
+                    totalPrice,
+                };
+
+                try {
+                    const response = await fetch('http://localhost:3019/api/orders', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(orderData),
+                    });
+
+                    if (response.ok) {
+                        const savedOrder = await response.json();
+                        alert('Order confirmed!');
+                        localStorage.removeItem('cart'); // Clear cart data
+                        window.location.href = 'dashboard.html';
+                    } else {
+                        const errorText = await response.text();
+                        alert(`Failed to confirm order: ${errorText}`);
+                    }
+                } catch (error) {
+                    console.error('Error during order confirmation:', error);
+                    alert('An error occurred while confirming your order.');
+                }
+            });
+
+            // Cancel order
+            document.getElementById('cancel').addEventListener('click', () => {
+                localStorage.removeItem('cart');
+                alert('Order canceled.');
+                window.location.href = 'dashboard.html';
+            });
+        });
+    </script>
+</body>
+</html>

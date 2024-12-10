@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitazan Agri Supply - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    
+    <div class="outer-box">
+        <div class="sidebar">
+            <div class="header-section">
+                <img src="images/logo.jpg" alt="Logo" class="logo">
+                <nav class="navigation">
+                    <ul>
+                        <li><a href="#" data-section="home">Home</a></li>
+                        <li><a href="#" data-section="cart">Cart</a></li>
+                        <li><a href="#" data-section="orders">Orders</a></li>
+                        <li><a href="#" data-section="account">Account</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Home Section with Product List -->
+        <div id="home" class="inner-box section active">
+            <div id="products-container"></div> 
+        </div>
+
+        <!-- Cart Section with Cart Details and Checkout -->
+        <div id="cart" name="cart" class="inner-box section">
+            <div id="cart-container"></div>
+        </div>
+
+        <!-- Orders Section -->
+        <div id="orders" name="orders" class="inner-box section">
+            <h2>Orders</h2>
+            <ul id="orders-list"></ul>
+        </div>
+
+        <div id="account" name="account" class="inner-box section">
+            <article>
+                <h2>Account Information</h2>
+                <p><strong>Username:</strong> <span id="Username"></span></p>
+                <p><strong>First Name:</strong> <span id="FirstName"></span></p>
+                <p><strong>Last Name:</strong> <span id="LastName"></span></p>
+                <p><strong>Contact Info:</strong> <span id="ContactInfo"></span></p>
+                <p><strong>Address:</strong> <span id="Address"></span></p>
+                <div class="account-buttons">
+                    <button type="button" id="logout" class="logout" onclick="window.location.href='index.html'">Logout</button>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <script src="cart.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

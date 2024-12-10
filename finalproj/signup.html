@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mitazan Agri Supply - Sign Up</title>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <script>
+            function toggleEmployeeId() {
+                var roleEmployee = document.querySelector('input[name="role"]:checked');
+                var employeeIdInput = document.getElementById("employee-id-container");
+                if (roleEmployee && roleEmployee.value === "Employee") {
+                    employeeIdInput.style.display = "block"; 
+                }
+                else {
+                    employeeIdInput.style.display = "none"; 
+                }
+            }
+        </script>
+        <script>
+            function validatePassword() {
+                var Password = document.getElementById('Password').value;
+                var ConfirmPassword = document.getElementById('ConfirmPassword').value;
+                if (Password !== ConfirmPassword) {
+                    alert("Passwords do not match!");
+                    console.log("Passwords do not match!");
+                    return false;  
+                }
+                return true;  
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <form action="/signup" method="POST" onsubmit="return validatePassword()">
+                <h3>Sign Up</h3>
+                <div class="input-container">
+                    <input type="text" name="FirstName" class="oval-input" placeholder="First Name" required>
+                </div>
+
+                <div class="input-container">
+                    <input type="text" name="LastName" class="oval-input" placeholder="Last Name" required>
+                </div>
+                
+                <div class="input-container">
+                    <input type="text" name="ContactInfo" class="oval-input" placeholder="Contact Number" required>
+                </div>
+                
+                <div class="input-container">
+                    <input type="text" name="Address" class="oval-input" placeholder="Address" required>
+                </div>
+            
+                <div class="input-container">
+                    <input type="text" name="Username" class="oval-input" placeholder="Username" required>
+                </div>
+            
+                <div class="input-container">
+                    <input type="text" name="Password" id="Password" class="oval-input" placeholder="Password" required>
+                </div>
+            
+                <div class="input-container">
+                    <input type="text" name="ConfirmPassword" id="ConfirmPassword" class="oval-input" placeholder="Confirm Password" required>
+                </div>
+
+                <h4>Select Role</h4>
+                <div class="role-radio-container">
+                    <label class="role-radio">
+                        <input type="radio" id="role-employee" name="role" value="Employee" onclick="toggleEmployeeId()" required> Employee
+                    </label>
+                    <label class="role-radio">
+                        <input type="radio" id="role-customer" name="role" value="Customer" onclick="toggleEmployeeId()"> Customer
+                    </label>
+                </div>
+
+                <div class="input-container" id="employee-id-container" style="display: none;">
+                    <input type="text" name="EmployeeID" class="oval-input" placeholder="Employee ID">
+                </div>
+
+                <div class="input-container">
+                    <button type="submit" class="signup-button" name="signup" >Sign Up</button>
+                </div>
+                <div class="login-container">
+                    <span>Already have an account?</span>
+                    <a href="index.html" class="ph">Log in</a>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
